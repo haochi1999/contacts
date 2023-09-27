@@ -1,0 +1,172 @@
+.flex {
+    display: flex;
+    min-width: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    &.wrap {
+        flex-wrap: wrap;
+    }
+
+    &.no-wrap {
+        flex-wrap: nowrap;
+    }
+
+    &.top {
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+
+    &.bottom {
+        align-items: flex-end;
+        align-content: flex-end;
+    }
+
+    &.middle {
+        align-items: center;
+        align-content: center;
+    }
+
+    &.left {
+        justify-content: flex-start;
+    }
+
+    &.center {
+        justify-content: center;
+    }
+
+    &.right {
+        justify-content: flex-end;
+    }
+
+    &.spread {
+        justify-content: space-between;
+    }
+
+    &.balance {
+        justify-content: space-around;
+    }
+
+    &.stretch {
+        align-items: stretch;
+        align-content: stretch;
+    }
+
+    &.vertical {
+        flex-direction: column;
+    }
+
+    &.fluid {
+        flex-grow: 1;
+    }
+
+    &.fixed {
+        flex-shrink: 0;
+    }
+
+    &.full {
+        flex-basis: 100%;
+    }
+
+    &.half-width {
+        flex-basis: 50%;
+    }
+}
+
+.field {
+    @extend .flex;
+
+    &:not(.vertical) {
+        @extend .middle;
+    }
+
+    &.vertical {
+        @extend .top, .center;
+    }
+}
+
+.grid {
+    display: grid;
+    flex-grow: 1;
+    
+    &.left {
+        justify-items: start;
+    }
+    
+    &.center {
+        justify-items: center;
+    }
+
+    &.right {
+        justify-items: end;
+    }
+    
+    &.top {
+        align-items: start;
+    }
+
+    &.middle {
+        align-items: center;
+    }
+
+    &.bottom {
+        align-items: end;
+    }
+    
+    &.spread {
+        justify-items: stretch;
+    }
+    
+    &.stretch {
+        align-items: stretch;
+    }
+}
+
+.container {
+    @extend 
+        .flex,
+        .center,
+        .top,
+        .wrap;
+    height: 100%;
+    min-width: 1280px;
+}
+
+.full_screen {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 40;
+}
+
+@mixin position_center_x($top: 0, $position: absolute) {
+    position: $position;
+    top: $top;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@mixin position_center_y($left: 0, $position: absolute) {
+    position: $position;
+    left: $left;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@mixin position_center($position: absolute) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin background_image($url: none) {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("#{$url}");
+}

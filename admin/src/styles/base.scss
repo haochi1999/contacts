@@ -1,0 +1,45 @@
+@import "./config.scss";
+
+@each $name, $value in $color {
+    .font_#{$name}, .hover_font_#{$name}:hover {
+        color: $value;
+    }
+
+    .shade_#{$name} {
+        box-shadow: 0 0 5px 0 rgba($value, 0.5);
+    }
+
+    .bordered_#{$name}, .hover_bordered_#{$name}:hover {
+        border: 1px solid $value;
+    }
+
+    .background_#{$name}, .hover_background_#{$name}:hover {
+        background-color: $value;
+    }
+
+    @each $name2, $value2 in $opacity {
+        .background_#{$name}_#{$name2}, .hover_background_#{$name}_#{$name2}:hover {
+            background-color: rgba($value, $value2);
+        }
+    }
+
+    @each $direction in top, right, bottom, left {
+        .bordered_#{$direction}_#{$name} {
+            border-#{$direction}: 1px solid $value;
+        }
+    }
+}
+
+.overflow_hidden {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @for $i from 2 through 10 {
+        &-#{$i} {
+            display: -webkit-box;
+            -webkit-line-clamp: $i;
+            -webkit-box-orient: vertical;
+        }
+    }
+}
