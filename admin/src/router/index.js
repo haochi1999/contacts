@@ -6,7 +6,30 @@ const router = createRouter({
 		{
 			path: '/',
 			name: 'home',
-			component: () => import('../views/Home.vue')
+			redirect: {name: 'dashboard'},
+			component: () => import('../views/Home.vue'),
+			children: [
+				{
+					path: '/dashboard',
+					name: 'dashboard',
+					component: () => import('../views/Dashboard.vue'),
+				},
+				{
+					path: '/contacts',
+					name: 'contacts',
+					component: () => import('../views/Contacts.vue'),
+				},
+				{
+					path: '/person',
+					name: 'person',
+					component: () => import('../views/Person.vue'),
+				},
+				{
+					path: '/information',
+					name: 'information',
+					component: () => import('../views/Information.vue'),
+				},
+			],
 		},
 		{
 			path: '/login',
@@ -17,7 +40,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	console.log(to)
 	const username = sessionStorage.getItem('username')
 	if (username || to.name === 'login') {
 		next()
