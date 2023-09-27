@@ -7,7 +7,7 @@
                     <el-input v-model="loginForm.username" />
                 </el-form-item>
                 <el-form-item label="密码：" prop="password">
-                    <el-input v-model="loginForm.password" />
+                    <el-input v-model="loginForm.password" type="password" />
                 </el-form-item>
                 <el-form-item>
                     <el-button class="login-btn flex full" :loading="loginLoading" type="primary" @click="submitForm(formRef)">登录</el-button>
@@ -19,6 +19,9 @@
 
 <script setup>
 import {ref, reactive} from 'vue'
+import {qeuryUserInfo} from '../api'
+import {ElMessage} from 'element-plus'
+import router from '../router/index'
 
 const formRef = ref()
 const loginLoading = ref(false)
@@ -37,7 +40,13 @@ const submitForm = (formEl) => {
         if (valid) {
             loginLoading.value = true
             try {
-
+                await qeuryUserInfo(loginForm).then(resp => {
+                    if (resp && resp.code === 200) {
+                        ElMessage.success('登录成功')
+                        sessionStorage.setItem('username', loginForm.username)
+                        router.push({name: 'home'})
+                    }
+                })
             } finally {
                 loginLoading.value = false
             }
